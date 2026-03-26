@@ -1,7 +1,6 @@
 ---
 title: First Test child
 layout: default
-parent: Home
 ---
 
 Testing this page to see if it works properly. Linking to Home
