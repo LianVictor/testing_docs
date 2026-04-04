@@ -1,11 +1,11 @@
 ---
-title: Second Test child
+title: Hardware SEtup
 layout: default
-nav_order: 2
+nav_order: 100
 ---
 
 Grab info from [VBX 2.0.3]
-Testing this page to see if it works properly. 2nd page
+Work in progress
 
 ----
 
