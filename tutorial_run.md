@@ -151,7 +151,7 @@ The VectorBlox SDK comes with a set of public models that are used to demonstrat
             fi
         ```
 
-    </details markdown="block"> 
+    </details> 
     
 
 
