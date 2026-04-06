@@ -24,21 +24,28 @@ Running a yolov8n tutorial.
 
     ## Generation of numpy array for quantization
 
+
     1. Script below creates a npy array with a shape of [20, 288, 512,3] from source npy array with the shape of [20, 416, 416, 3]
+
 
         ```
         if [ ! -f $VBX_SDK/tutorials/coco2017_rgb_norm_20x288x512x3.npy ]; then
             generate_npy $VBX_SDK/tutorials/coco2017_rgb_20x416x416x3.npy -o $VBX_SDK/tutorials/coco2017_rgb_norm_20x288x512x3.npy -s 288 512  --norm 
         fi
         ```
-    
+
+
     ## Export the Yolov5n source model
 
+
     1. Downloads the coco names and Pytorch model. 
-   
+
+
     2. Sets up the Ultralytics virtual environment from the Ultralytics repo and the packages
-    
+
+
     3. Exports the yolov5n pytorch model to an `.onnx` file type with an input size of 288(height) and 512(width)
+
 
         ```
         [ -f coco.names ] || wget -q https://raw.githubusercontent.com/pjreddie/darknet/master/data/coco.names
@@ -60,14 +67,19 @@ Running a yolov8n tutorial.
         fi
         ```
 
+
     ## Convert, Cut, and Quantize the onnx model
+
 
     1. Uses onnx2tf to convert an `.onnx` model to `.tflite`
 
+
     2. Takes the previous `.npy` array and `.onnx` models and generates an int8 `.tflite` model.
 
+
     3. Cuts the model at various stages via `--output_names_to_interrupt_model_conversion` argument to cut the model at 3 areas in the model
-    
+
+
         ```
         if [ ! -f yolov5n_512x288.tflite ]; then
         echo "Running ONNX2TF..."
@@ -80,9 +92,12 @@ Running a yolov8n tutorial.
         fi    
         ```
 
+
     ## Preprocess the tflite model
 
+
     1. A preprocessing layer is added to the model so that the input can be fed in as uint8 rather than int8.
+
 
         ```
         if [ -f yolov5n_512x288.tflite ]; then
@@ -90,9 +105,12 @@ Running a yolov8n tutorial.
         fi    
         ```
 
+
     ## Compile the Vectorblox Binary
 
+
     1. Generates a V1000 Vectorblox Binary with the no compression(ncomp) flag.
+
 
         ```
         if [ -f yolov5n_512x288.pre.tflite ]; then
@@ -101,23 +119,30 @@ Running a yolov8n tutorial.
         fi    
         ```
 
+
     ## Run the VectorBlox Binary through Python simulation
+
 
     1. Runs inference on the generated vnnx binary with the following args:
 
+
         - `-j yolov5n.json`:   yolov5n postprocessing anchors
+
 
         - `-v 5`:              use yolov5n postprocessing script
 
+
         - `-l coco.names`:     names to append to classes for detection
+
 
         - `-t 0.25`:           minimum threshold for detection (from 0.0-1.0)
 
 
+
     2. In addition, it shows the instruction to run to obtain a similar result from the C simulation
 
-        ```
 
+        ```
         if [ -f yolov5n_512x288_V1000_ncomp.vnnx ]; then
             echo "Running Simulation..."
             python $VBX_SDK/example/python/yoloInfer.py yolov5n_512x288_V1000_ncomp.vnnx $VBX_SDK/tutorials/test_images/dog.jpg -j yolov5n.json -v 5 -l coco.names -t 0.25 
@@ -125,6 +150,7 @@ Running a yolov8n tutorial.
             echo '$VBX_SDK/example/sim-c/sim-run-model yolov5n_512x288_V1000_ncomp.vnnx $VBX_SDK/tutorials/test_images/dog.jpg YOLOV5'
         fi
         ```
+
 
     </details> 
     

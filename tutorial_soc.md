@@ -62,8 +62,10 @@ Before continuing to this stage, make sure that the steps from [HW Setup] have b
 2. Modify the following `demo_models.h` file within that directory and change the following `struct model_Descr_t models[]` list via:
     
     ```
-    sed -i '/ {"Midas V2", "/home/root/samples_V1000_NCOMP_3.0/Midas-V2-Quantized_V1000_ncomp.vnnx", 0, "PIXEL"},	/a {"Yolov5n", "/home/root/samples_V1000_NCOMP_3.0/yolov5n_512x288_V1000_ncomp.vnnx", 0, "YOLOV5"},' demo_models.h
+    grep -rF "yolov5n_512x288_V1000_ncomp" demo_models.h || \
+    sed -i '\|{"Midas V2", "/home/root/samples_V1000_NCOMP_3.0/Midas-V2-Quantized_V1000_ncomp.vnnx", 0, "PIXEL"},|a {"Yolov5n", "/home/root/samples_V1000_NCOMP_3.0/yolov5n_512x288_V1000_ncomp.vnnx", 0, "YOLOV5"},' demo_models.h
     ```
+    *Note this step can be done manually or using the above command. If using the above command it is recommended to copy it via browser and paste into CLI
 
 3. Verify that the modification is done by checking if the Yolov5N model is inserted in to the last set of structs using 
 
