@@ -22,7 +22,7 @@ The VectorBlox SDK comes with a set of public models that are used to demonstrat
 
     <summary>Breakdown of yolov5n_512x288.sh Shell Script</summary>
 
-    ## Generation of numpy array for quantization
+    **Generation of numpy array for quantization**
 
 
     1. Script below creates a npy array with a shape of [20, 288, 512,3] from source npy array with the shape of [20, 416, 416, 3]
@@ -35,7 +35,7 @@ The VectorBlox SDK comes with a set of public models that are used to demonstrat
             ```
 
 
-    ## Export the Yolov5n source model
+    **Export the Yolov5n source model**
 
 
     1. Downloads the coco names and Pytorch model. 
@@ -68,7 +68,7 @@ The VectorBlox SDK comes with a set of public models that are used to demonstrat
         ```
 
 
-    ## Convert, Cut, and Quantize the onnx model
+    **Convert, Cut, and Quantize the onnx model**
 
 
     1. Uses onnx2tf to convert an `.onnx` model to `.tflite`
@@ -93,7 +93,7 @@ The VectorBlox SDK comes with a set of public models that are used to demonstrat
         ```
 
 
-    ## Preprocess the tflite model
+    **Preprocess the tflite model**
 
 
     1. A preprocessing layer is added to the model so that the input can be fed in as uint8 rather than int8.
@@ -106,7 +106,7 @@ The VectorBlox SDK comes with a set of public models that are used to demonstrat
         ```
 
 
-    ## Compile the Vectorblox Binary
+    **Compile the Vectorblox Binary**
 
 
     1. Generates a V1000 Vectorblox Binary with the no compression(ncomp) flag.
@@ -120,7 +120,7 @@ The VectorBlox SDK comes with a set of public models that are used to demonstrat
         ```
 
 
-    ## Run the VectorBlox Binary through Python simulation
+    **Run the VectorBlox Binary through Python simulation**
 
 
     1. Runs inference on the generated vnnx binary with the following args:
